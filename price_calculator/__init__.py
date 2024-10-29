@@ -1,2 +1,2 @@
 from .data_processor import DataProcessor
-from .item import Item
+from .training_course import TrainingCourse

@@ -1,5 +1,4 @@
-import pytest
-from price_calculator import DataProcessor, Item
+from price_calculator import DataProcessor, TrainingCourse
 
 def test_should_calculate_total_value_of_remaining_training_courses():
     # Arrange
@@ -11,7 +10,7 @@ def test_should_calculate_total_value_of_remaining_training_courses():
     super early bird discount:      400
     Discounted price:               3600
     """
-    i1 = Item("10 January 2024", 30, 50, 5, True, "CSD", 4000)
+    i1 = TrainingCourse("10 January 2024", 30, 50, 5, True, "CSD", 4000)
     
     """
     Number of seats:                2
@@ -21,15 +20,14 @@ def test_should_calculate_total_value_of_remaining_training_courses():
     Super Early bird discount:      9*30
     Discounted price:               3500
     """
-    i2 = Item("10 January 2024", 9, 50, 2, True, "CSD", 4000)
+    i2 = TrainingCourse("10 January 2024", 9, 50, 2, True, "CSD", 4000)
     
-    items = [i1, i2]
-    DataProcessor.list = items
+    training_courses = [i1, i2]
+    processor = DataProcessor(training_courses)
 
     # Act
-    DataProcessor.calculate_data(False)
+    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
 
     # Assert
     expected_remaining_sales_target = (3600 * 5) + ((4000 - 9*30) * 2)
-    assert DataProcessor.value == expected_remaining_sales_target
-    
+    assert processor.get_remaining_sales_target() == expected_remaining_sales_target

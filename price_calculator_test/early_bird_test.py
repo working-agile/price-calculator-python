@@ -1,64 +1,66 @@
 import pytest
-from price_calculator import DataProcessor, Item
-    
-def test_should_apply_proportional_discount_from_day_6_for_CSD():
+from price_calculator import DataProcessor, TrainingCourse
+
+def test_should_apply_proportional_discount_from_day_6_for_csd():
     # Arrange
     """
-    Days before training course:    6
-    Type:                           CSD
-    Full price:                     4000
-    Proportional discount:          6*30
+    Days before training course: 6
+    Type:                       CSD
+    Full price:                 4000
+    Proportional discount:      6*30
     -->
-    discounted price:               4000-(6*30) = 3820
+    discounted price:           4000-(6*30) = 3820
     """
-    i1 = Item("10 January 2024", 6, 50, 25, True, "CSD", 4000)
-    items = [i1]
-    DataProcessor.list = items
+    i1 = TrainingCourse("10 January 2024", 6, 50, 25, True, "CSD", 4000)
+    training_courses = [i1]
+    processor = DataProcessor(training_courses)
 
     # Act
-    DataProcessor.calculate_data(False)
+    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
 
     # Assert
-    assert DataProcessor.list[0].current == 3820, "proportional discount expected"
+    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 3820, "proportional discount expected"
 
-def test_should_apply_proportional_discount_day_5_for_CSD_when_enough_seats_available():
+
+def test_should_apply_proportional_discount_day_5_for_csd_when_enough_seats_available():
     # Arrange
     """
-    Days before training course:    5
-    Type:                           CSD
-    Full price:                     4000
-    Proportional discount:          5*30
+    Days before training course: 5
+    Type:                       CSD
+    Full price:                 4000
+    Proportional discount:      5*30
     -->
-    discounted:                     4000-(5*30) = 3850
+    discounted price:           4000-(5*30) = 3850
     """
-    i1 = Item("10 January 2024", 5, 50, 25, True, "CSD", 4000)
-    items = [i1]
-    DataProcessor.list = items
+    i1 = TrainingCourse("10 January 2024", 5, 50, 25, True, "CSD", 4000)
+    training_courses = [i1]
+    processor = DataProcessor(training_courses)
 
     # Act
-    DataProcessor.calculate_data(False)
+    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
 
     # Assert
-    assert DataProcessor.list[0].current == 3850, "proportional discount expected when enough seats available"
+    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 3850, "proportional discount expected when enough seats available"
 
-@pytest.mark.parametrize("trainingCourseType", ["CSPO", "CSM"])
-def test_should_apply_proportional_discount_for_CSM_and_CSPO(trainingCourseType):
+
+@pytest.mark.parametrize("training_course_type", ["CSPO", "CSM"])
+def test_should_apply_proportional_discount_for_csm_and_cspo(training_course_type):
     # Arrange
     """
-    Days before training course:    10
-    Type:                           CSPO e CSM
-    Full price:                     4000
-    Proportional discount:          10*30
+    Days before training course: 10
+    Type:                       CSPO and CSM
+    Full price:                 4000
+    Proportional discount:      10*30
     -->
-    discounted:                     4000-(10*20) = 3800
+    discounted price:           4000-(10*20) = 3800
     """
-    i1 = Item("10 January 2024", 10, 50, 25, True, trainingCourseType, 4000)
-    items = [i1]
-    DataProcessor.list = items
+    i1 = TrainingCourse("10 January 2024", 10, 50, 25, True, training_course_type, 4000)
+    training_courses = [i1]
+    processor = DataProcessor(training_courses)
 
     # Act
-    DataProcessor.calculate_data(False)
+    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
 
     # Assert
-    assert DataProcessor.list[0].current == 3800, "should apply proportional discount - first day of the interval"
+    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 3800, "should apply proportional discount - first day of the interval"
     
