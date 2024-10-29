@@ -1,4 +1,4 @@
-from price_calculator import TrainingCourseService, TrainingCourse
+from price_calculator import TrainingCourseService, CSD, CSPO, CSM
 
 def test_super_early_bird_discount_on_day_11_before_training_course():
     # Arrange
@@ -10,7 +10,7 @@ def test_super_early_bird_discount_on_day_11_before_training_course():
     -->
     discounted price:               3600
     """
-    i1 = TrainingCourse("10 January 2024", 11, 50, 20, True, "CSD", 4000)
+    i1 = CSD("10 January 2024", 11, 50, 20, True, 4000)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 
@@ -30,7 +30,7 @@ def test_super_early_bird_discount_for_CSD():
     SuperEarlyBird discount:        -400
     Discounted price:               3600
     """
-    i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSD", 4000)
+    i1 = CSD("10 January 2024", 25, 50, 20, True, 4000)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 
@@ -50,7 +50,7 @@ def test_super_early_bird_discount_for_CSM():
     SuperEarlyBird discount:        -500
     Discounted price:               3500
     """
-    i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSM", 4000)
+    i1 = CSM("10 January 2024", 25, 50, 20, True, 4000)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 
@@ -70,7 +70,7 @@ def test_super_early_bird_discount_for_CSPO():
     SuperEarlyBird discount:        -400
     Discounted price:               3600
     """
-    i1 = TrainingCourse("10 January 2024", 32, 50, 20, True, "CSPO", 4000)
+    i1 = CSPO("10 January 2024", 32, 50, 20, True, 4000)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 

@@ -1,5 +1,5 @@
 import pytest
-from price_calculator import TrainingCourseService, TrainingCourse
+from price_calculator import TrainingCourseService, TrainingCourse, TrainingCourseFactory
 
 @pytest.mark.parametrize("training_course_type", ["CSD", "CSPO", "CSM"])
 def test_should_have_full_price_on_the_day_of_the_training_class(training_course_type):
@@ -11,7 +11,7 @@ def test_should_have_full_price_on_the_day_of_the_training_class(training_course
     -->
     no discount:                    4000
     """
-    i1 = TrainingCourse("10 January 2024", 0, 50, 20, True, training_course_type, 4000)
+    i1 = TrainingCourseFactory.create_training_course(training_course_type, "10 January 2024", 0, 50, 20, True, 4000)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 
@@ -30,7 +30,7 @@ def test_should_have_full_price_on_the_day_prior_to_the_training_class(training_
     -->
     no discount:                    4000
     """
-    i1 = TrainingCourse("10 January 2024", 1, 50, 20, True, training_course_type, 4000)
+    i1 = TrainingCourseFactory.create_training_course(training_course_type, "10 January 2024", 1, 50, 20, True, 4000)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 
@@ -50,7 +50,7 @@ def test_full_price_5_days_prior_to_the_training_class_if_less_than_3_seats_left
     -->
     no discount:                    4000
     """
-    i1 = TrainingCourse("10 January 2024", 5, 50, 2, True, training_course_type, 4000)
+    i1 = TrainingCourseFactory.create_training_course(training_course_type, "10 January 2024", 5, 50, 2, True, 4000)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 
