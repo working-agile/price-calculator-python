@@ -1,4 +1,4 @@
-from price_calculator import DataProcessor, TrainingCourse
+from price_calculator import TrainingCourseService, TrainingCourse
 
 def test_super_early_bird_discount_overruled_by_minimum_price_for_CSD():
     # Arrange
@@ -14,13 +14,13 @@ def test_super_early_bird_discount_overruled_by_minimum_price_for_CSD():
     """
     i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSD", 1200)
     training_courses = [i1]
-    processor = DataProcessor(training_courses)
+    training_course_service = TrainingCourseService(training_courses)
 
     # Act
-    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
+    training_course_service.update_current_prices()
 
     # Assert
-    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 900
+    assert training_course_service.get_scheduled_training_courses()[0].current_discounted_price == 900
 
 def test_super_early_bird_discount_overruled_by_minimum_price_for_CSM():
     # Arrange
@@ -36,13 +36,13 @@ def test_super_early_bird_discount_overruled_by_minimum_price_for_CSM():
     """
     i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSM", 1500)
     training_courses = [i1]
-    processor = DataProcessor(training_courses)
+    training_course_service = TrainingCourseService(training_courses)
 
     # Act
-    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
+    training_course_service.update_current_prices()
 
     # Assert
-    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 1000
+    assert training_course_service.get_scheduled_training_courses()[0].current_discounted_price == 1000
 
 def test_super_early_bird_discount_overruled_by_minimum_price_for_CSPO():
     # Arrange
@@ -58,10 +58,11 @@ def test_super_early_bird_discount_overruled_by_minimum_price_for_CSPO():
     """
     i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSPO", 1500)
     training_courses = [i1]
-    processor = DataProcessor(training_courses)
+    training_course_service = TrainingCourseService(training_courses)
 
     # Act
-    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
+    training_course_service.update_current_prices()
 
     # Assert
-    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 1200
+    assert training_course_service.get_scheduled_training_courses()[0].current_discounted_price == 1200
+    
