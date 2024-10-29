@@ -1,6 +1,6 @@
-from price_calculator import TrainingCourseService, TrainingCourse
+from price_calculator import TrainingCourseService, CSD, CSPO, CSM
 
-def test_super_early_bird_discount_overruled_by_minimum_price_for_CSD():
+def test_super_early_bird_discount_overruled_by_minimum_price_for_csd():
     # Arrange
     """
     Days before training course:    25
@@ -12,7 +12,7 @@ def test_super_early_bird_discount_overruled_by_minimum_price_for_CSD():
     Discounted price:               800
     Minimum price:                  900
     """
-    i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSD", 1200)
+    i1 = CSD("10 January 2024", 25, 50, 20, True, 1200)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 
@@ -22,7 +22,7 @@ def test_super_early_bird_discount_overruled_by_minimum_price_for_CSD():
     # Assert
     assert training_course_service.get_scheduled_training_courses()[0].current_discounted_price == 900
 
-def test_super_early_bird_discount_overruled_by_minimum_price_for_CSM():
+def test_super_early_bird_discount_overruled_by_minimum_price_for_csm():
     # Arrange
     """
     Days before training course:    25
@@ -34,7 +34,7 @@ def test_super_early_bird_discount_overruled_by_minimum_price_for_CSM():
     Discounted price:               700
     Minimum price:                  1000
     """
-    i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSM", 1500)
+    i1 = CSM("10 January 2024", 25, 50, 20, True, 1500)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 
@@ -44,7 +44,7 @@ def test_super_early_bird_discount_overruled_by_minimum_price_for_CSM():
     # Assert
     assert training_course_service.get_scheduled_training_courses()[0].current_discounted_price == 1000
 
-def test_super_early_bird_discount_overruled_by_minimum_price_for_CSPO():
+def test_super_early_bird_discount_overruled_by_minimum_price_for_cspo():
     # Arrange
     """
     Days before training course:    25
@@ -56,7 +56,7 @@ def test_super_early_bird_discount_overruled_by_minimum_price_for_CSPO():
     Discounted price:               1100
     Minimum price:                  1200
     """
-    i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSPO", 1500)
+    i1 = CSPO("10 January 2024", 25, 50, 20, True, 1500)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 

@@ -1,5 +1,5 @@
 import pytest
-from price_calculator import TrainingCourseService, TrainingCourse
+from price_calculator import TrainingCourseService, CSD, CSPO, CSM
 
 def test_should_apply_proportional_discount_from_day_6_for_csd():
     # Arrange
@@ -11,7 +11,7 @@ def test_should_apply_proportional_discount_from_day_6_for_csd():
     -->
     discounted price:           4000-(6*30) = 3820
     """
-    i1 = TrainingCourse("10 January 2024", 6, 50, 25, True, "CSD", 4000)
+    i1 = CSD("10 January 2024", 6, 50, 25, True, 4000)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 
@@ -31,7 +31,7 @@ def test_should_apply_proportional_discount_day_5_for_csd_when_enough_seats_avai
     -->
     discounted price:           4000-(5*30) = 3850
     """
-    i1 = TrainingCourse("10 January 2024", 5, 50, 25, True, "CSD", 4000)
+    i1 = CSD("10 January 2024", 5, 50, 25, True, 4000)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 
@@ -41,7 +41,7 @@ def test_should_apply_proportional_discount_day_5_for_csd_when_enough_seats_avai
     # Assert
     assert training_course_service.get_scheduled_training_courses()[0].current_discounted_price == 3850, "proportional discount expected when enough seats available"
 
-@pytest.mark.parametrize("training_course_type", ["CSPO", "CSM"])
+@pytest.mark.parametrize("training_course_type", [CSPO, CSM])
 def test_should_apply_proportional_discount_for_csm_and_cspo(training_course_type):
     # Arrange
     """
@@ -52,7 +52,7 @@ def test_should_apply_proportional_discount_for_csm_and_cspo(training_course_typ
     -->
     discounted price:           4000-(10*20) = 3800
     """
-    i1 = TrainingCourse("10 January 2024", 10, 50, 25, True, training_course_type, 4000)
+    i1 = training_course_type("10 January 2024", 10, 50, 25, True, 4000)
     training_courses = [i1]
     training_course_service = TrainingCourseService(training_courses)
 
