@@ -1,5 +1,4 @@
-import pytest
-from price_calculator import DataProcessor, Item
+from price_calculator import DataProcessor, TrainingCourse
 
 def test_super_early_bird_discount_on_day_11_before_training_course():
     # Arrange
@@ -11,14 +10,15 @@ def test_super_early_bird_discount_on_day_11_before_training_course():
     -->
     discounted price:               3600
     """
-    i1 = Item("10 January 2024", 11, 50, 20, True, "CSD", 4000)
-    items = [i1]
+    i1 = TrainingCourse("10 January 2024", 11, 50, 20, True, "CSD", 4000)
+    training_courses = [i1]
+    processor = DataProcessor(training_courses)
 
     # Act
-    DataProcessor.calculate_data(False)
+    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
 
     # Assert
-    assert DataProcessor.list[0].current == 3600
+    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 3600
 
 def test_super_early_bird_discount_for_CSD():
     # Arrange
@@ -30,14 +30,15 @@ def test_super_early_bird_discount_for_CSD():
     SuperEarlyBird discount:        -400
     Discounted price:               3600
     """
-    i1 = Item("10 January 2024", 25, 50, 20, True, "CSD", 4000)
-    items = [i1]
+    i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSD", 4000)
+    training_courses = [i1]
+    processor = DataProcessor(training_courses)
 
     # Act
-    DataProcessor.calculate_data(False)
+    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
 
     # Assert
-    assert DataProcessor.list[0].current == 3600
+    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 3600
 
 def test_super_early_bird_discount_for_CSM():
     # Arrange
@@ -49,15 +50,15 @@ def test_super_early_bird_discount_for_CSM():
     SuperEarlyBird discount:        -500
     Discounted price:               3500
     """
-    i1 = Item("10 January 2024", 25, 50, 20, True, "CSM", 4000)
-    items = [i1]
-    DataProcessor.list = items
+    i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSM", 4000)
+    training_courses = [i1]
+    processor = DataProcessor(training_courses)
 
     # Act
-    DataProcessor.calculate_data(False)
+    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
 
     # Assert
-    assert DataProcessor.list[0].current == 3500
+    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 3500
 
 def test_super_early_bird_discount_for_CSPO():
     # Arrange
@@ -69,12 +70,12 @@ def test_super_early_bird_discount_for_CSPO():
     SuperEarlyBird discount:        -400
     Discounted price:               3600
     """
-    i1 = Item("10 January 2024", 32, 50, 20, True, "CSPO", 4000)
-    items = [i1]
-    DataProcessor.list = items
+    i1 = TrainingCourse("10 January 2024", 32, 50, 20, True, "CSPO", 4000)
+    training_courses = [i1]
+    processor = DataProcessor(training_courses)
 
     # Act
-    DataProcessor.calculate_data(False)
+    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
 
     # Assert
-    assert DataProcessor.list[0].current == 3600
+    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 3600

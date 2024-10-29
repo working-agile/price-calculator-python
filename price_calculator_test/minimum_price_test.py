@@ -1,5 +1,4 @@
-import pytest
-from price_calculator import DataProcessor, Item
+from price_calculator import DataProcessor, TrainingCourse
 
 def test_super_early_bird_discount_overruled_by_minimum_price_for_CSD():
     # Arrange
@@ -13,15 +12,15 @@ def test_super_early_bird_discount_overruled_by_minimum_price_for_CSD():
     Discounted price:               800
     Minimum price:                  900
     """
-    i1 = Item("10 January 2024", 25, 50, 20, True, "CSD", 1200)
-    items = [i1]
-    DataProcessor.list = items
+    i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSD", 1200)
+    training_courses = [i1]
+    processor = DataProcessor(training_courses)
 
     # Act
-    DataProcessor.calculate_data(False)
+    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
 
     # Assert
-    assert DataProcessor.list[0].current == 900
+    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 900
 
 def test_super_early_bird_discount_overruled_by_minimum_price_for_CSM():
     # Arrange
@@ -35,15 +34,15 @@ def test_super_early_bird_discount_overruled_by_minimum_price_for_CSM():
     Discounted price:               700
     Minimum price:                  1000
     """
-    i1 = Item("10 January 2024", 25, 50, 20, True, "CSM", 1500)
-    items = [i1]
-    DataProcessor.list = items
+    i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSM", 1500)
+    training_courses = [i1]
+    processor = DataProcessor(training_courses)
 
     # Act
-    DataProcessor.calculate_data(False)
+    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
 
     # Assert
-    assert DataProcessor.list[0].current == 1000
+    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 1000
 
 def test_super_early_bird_discount_overruled_by_minimum_price_for_CSPO():
     # Arrange
@@ -57,12 +56,12 @@ def test_super_early_bird_discount_overruled_by_minimum_price_for_CSPO():
     Discounted price:               1100
     Minimum price:                  1200
     """
-    i1 = Item("10 January 2024", 25, 50, 20, True, "CSPO", 1500)
-    items = [i1]
-    DataProcessor.list = items
+    i1 = TrainingCourse("10 January 2024", 25, 50, 20, True, "CSPO", 1500)
+    training_courses = [i1]
+    processor = DataProcessor(training_courses)
 
     # Act
-    DataProcessor.calculate_data(False)
+    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
 
     # Assert
-    assert DataProcessor.list[0].current == 1200
+    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 1200
