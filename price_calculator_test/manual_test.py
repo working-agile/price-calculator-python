@@ -1,4 +1,4 @@
-from price_calculator import DataProcessor, TrainingCourse
+from price_calculator import TrainingCourseService, TrainingCourse
 
 def test_manual():
     print("Today is: 1. January 2025")
@@ -9,11 +9,11 @@ def test_manual():
     i3 = TrainingCourse("20 January 2025", 20, 30, 27, False, "CSM", 3000)
     training_courses = [i1, i2, i3]
 
-    processor = DataProcessor(training_courses)
+    training_course_service = TrainingCourseService(training_courses)
 
-    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
+    training_course_service.update_current_prices()
 
-    for training_course in processor.get_scheduled_training_courses():
+    for training_course in training_course_service.get_scheduled_training_courses():
         print("------------------------------")
         print("Training course")
         print(f"Type: {training_course.type}")
@@ -26,16 +26,16 @@ def test_manual():
         print(f"Remaining available seats: {training_course.remaining_available_seats}")
 
     print("-----------------------------------------------------")
-    print(f"Total sales target remaining: {processor.get_remaining_sales_target()}")
+    print(f"Total sales target remaining: {training_course_service.get_remaining_sales_target()}")
     print("-----------------------------------------------------")
 
     print("\n\nMove to next day: 2. January")
 
-    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(True)
+    training_course_service.update_current_prices()
 
     print("Registered training courses")
 
-    for training_course in processor.get_scheduled_training_courses():
+    for training_course in training_course_service.get_scheduled_training_courses():
         print("------------------------------")
         print("Training course")
         print(f"Type: {training_course.type}")
@@ -48,6 +48,6 @@ def test_manual():
         print(f"Remaining available seats: {training_course.remaining_available_seats}")
 
     print("-----------------------------------------------------")
-    print(f"Total sales target remaining: {processor.get_remaining_sales_target()}")
+    print(f"Total sales target remaining: {training_course_service.get_remaining_sales_target()}")
     print("-----------------------------------------------------")
     

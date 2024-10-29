@@ -1,5 +1,5 @@
 import pytest
-from price_calculator import DataProcessor, TrainingCourse
+from price_calculator import TrainingCourseService, TrainingCourse
 
 def test_should_apply_proportional_discount_from_day_6_for_csd():
     # Arrange
@@ -13,14 +13,13 @@ def test_should_apply_proportional_discount_from_day_6_for_csd():
     """
     i1 = TrainingCourse("10 January 2024", 6, 50, 25, True, "CSD", 4000)
     training_courses = [i1]
-    processor = DataProcessor(training_courses)
+    training_course_service = TrainingCourseService(training_courses)
 
     # Act
-    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
+    training_course_service.update_current_prices()
 
     # Assert
-    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 3820, "proportional discount expected"
-
+    assert training_course_service.get_scheduled_training_courses()[0].current_discounted_price == 3820, "proportional discount expected"
 
 def test_should_apply_proportional_discount_day_5_for_csd_when_enough_seats_available():
     # Arrange
@@ -34,14 +33,13 @@ def test_should_apply_proportional_discount_day_5_for_csd_when_enough_seats_avai
     """
     i1 = TrainingCourse("10 January 2024", 5, 50, 25, True, "CSD", 4000)
     training_courses = [i1]
-    processor = DataProcessor(training_courses)
+    training_course_service = TrainingCourseService(training_courses)
 
     # Act
-    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
+    training_course_service.update_current_prices()
 
     # Assert
-    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 3850, "proportional discount expected when enough seats available"
-
+    assert training_course_service.get_scheduled_training_courses()[0].current_discounted_price == 3850, "proportional discount expected when enough seats available"
 
 @pytest.mark.parametrize("training_course_type", ["CSPO", "CSM"])
 def test_should_apply_proportional_discount_for_csm_and_cspo(training_course_type):
@@ -56,11 +54,11 @@ def test_should_apply_proportional_discount_for_csm_and_cspo(training_course_typ
     """
     i1 = TrainingCourse("10 January 2024", 10, 50, 25, True, training_course_type, 4000)
     training_courses = [i1]
-    processor = DataProcessor(training_courses)
+    training_course_service = TrainingCourseService(training_courses)
 
     # Act
-    processor.move_to_next_day_before_training_course_update_current_prices_of_training_courses_update_sales_target(False)
+    training_course_service.update_current_prices()
 
     # Assert
-    assert processor.get_scheduled_training_courses()[0].current_discounted_price == 3800, "should apply proportional discount - first day of the interval"
+    assert training_course_service.get_scheduled_training_courses()[0].current_discounted_price == 3800, "should apply proportional discount - first day of the interval"
     
