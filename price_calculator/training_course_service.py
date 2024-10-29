@@ -9,7 +9,7 @@ class TrainingCourseService:
         self.sales_target_calculator = SalesTargetCalculator()
 
     def get_scheduled_training_courses(self):
-        return self.repository.get_scheduled_training_courses()[:]
+        return self.repository.get_scheduled_training_courses()
 
     def get_remaining_sales_target(self):
         return self.sales_target_calculator.get_remaining_sales_target()
@@ -22,9 +22,9 @@ class TrainingCourseService:
 
     def move_to_next_day_before_training_course(self):
         for training_course in self.repository.get_scheduled_training_courses():
-            if self._is_before_scheduled_date(training_course):
-                training_course.days_before_training_course -= 1
+            if self.is_before_scheduled_date(training_course):
+                training_course.decrease_days_before_training_course()
 
-    def _is_before_scheduled_date(self, training_course):
-        return training_course.days_before_training_course > 0
+    def is_before_scheduled_date(self, training_course):
+        return training_course.get_days_before_training_course() > 0
     
