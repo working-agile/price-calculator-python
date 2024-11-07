@@ -7,8 +7,7 @@ class CSD(TrainingCourse):
 
     def update_current_price(self):
         if self.is_proportional_early_bird():
-            self.set_current_discounted_price(
-                self.get_full_price() - (self.get_days_before_training_course() * 30))
+            self.set_current_discounted_price(self.get_full_price() - (self.get_days_before_training_course() * 30))
         elif self.is_super_early_bird():
             self.set_current_discounted_price(self.get_full_price() - 400)
 
