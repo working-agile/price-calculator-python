@@ -1,6 +1,7 @@
 from .csd import CSD
 from .csm import CSM
 from .cspo import CSPO
+from .odsf import ODSF
 
 class TrainingCourseFactory:
 
@@ -13,6 +14,8 @@ class TrainingCourseFactory:
             return CSM(scheduled_date, days_before_training_course, total_number_of_seats, remaining_available_seats, online, full_price)
         elif course_type == "CSPO":
             return CSPO(scheduled_date, days_before_training_course, total_number_of_seats, remaining_available_seats, online, full_price)
+        elif course_type == "OD-SF":
+            return ODSF(scheduled_date, days_before_training_course, total_number_of_seats, remaining_available_seats, online, full_price)
         else:
             raise ValueError("Unknown training course type")
         

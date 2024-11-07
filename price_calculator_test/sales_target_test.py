@@ -1,4 +1,4 @@
-from price_calculator import TrainingCourseService, TrainingCourse, CSD
+from price_calculator import TrainingCourseService, CSD
 
 def test_should_calculate_total_value_of_remaining_training_courses():
     # Arrange

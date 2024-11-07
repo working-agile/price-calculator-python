@@ -2,8 +2,13 @@ Simplified version of the Refactoring exercise from Axel W. Berle's Scrum Allian
 
 ### What is this repository for? ###
 
-* Refactoring for basic clean coding and SOLID principles
+* Refactoring for basic Clean Coding and SOLID principles
 
+### What should you do here?
+
+* Check out how the following techniques have been applied:
+
+> `Scenario Template`
 
 ### Branches
 
@@ -12,6 +17,11 @@ Simplified version of the Refactoring exercise from Axel W. Berle's Scrum Allian
 * 3-price-calculator-renamed: methods and variables renamed
 * 3b-price-calculator-SRP: main class broken down into smaller more cohesive classes
 * 4-price-calculator-OCP: extension by inheritance
+* 5a-price-calculator-LSP: introduction of a new training course type: OD-SF
+* 5b-price-calculator-LSP: a solution, breaking the Liskov Substitution Principle
+
+* 10a-price-calculator-BDD: setup for first scenario
+* 10b-price-calculator-BDD-implementation: implementation
 
 ### Business Rules
 
@@ -33,8 +43,6 @@ Simplified version of the Refactoring exercise from Axel W. Berle's Scrum Allian
 * No discount applicable the day before the training course
 * No discount applicable 5 days prior to the training course whenever there are less than 3 seats left
  
-
-
 ### Who do I talk to? ###
 
 * Axel Wilhelm Berle
