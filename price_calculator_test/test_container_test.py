@@ -74,7 +74,7 @@ def test_manual_tests_simulating_test_database(db_connection):
     processor.calculate_data(False)
 
     print("Scheduled training courses:")
-    for item in processor.list:
+    for item in processor.get_list():
         print("------------------------------")
         print(f"Type: {item.type}")
         print(f"When: {item.tr_date}")
@@ -85,14 +85,14 @@ def test_manual_tests_simulating_test_database(db_connection):
         print(f"Remaining available seats: {item.avail}")
 
     print("-----------------------------------------------------")
-    print(f"Total sales target remaining: {processor.sales_value}")
+    print(f"Total sales target remaining: {processor.get_sales_value()}")
     print("-----------------------------------------------------")
 
     # 2. Move to next day
     print("\n\nMove to next day\n")
     processor.calculate_data(True)
 
-    for item in processor.list:
+    for item in processor.get_list():
         print("Current training courses:")
         print("------------------------------")
         print("Training course")
@@ -105,5 +105,5 @@ def test_manual_tests_simulating_test_database(db_connection):
         print(f"Remaining available seats: {item.avail}")
 
     print("-----------------------------------------------------")
-    print(f"Total sales target remaining: {processor.sales_value}")
+    print(f"Total sales target remaining: {processor.get_sales_value()}")
     print("-----------------------------------------------------")
