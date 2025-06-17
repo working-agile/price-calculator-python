@@ -1,7 +1,6 @@
 import psycopg2
 from testcontainers.postgres import PostgresContainer
 
-# Global container and connection variables
 postgres = PostgresContainer("postgres:16-alpine")
 url = None
 username = None

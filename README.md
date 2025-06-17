@@ -7,12 +7,11 @@ Refactoring exercises of Scrum Alliance A-CSD training course.
 
 ### What is this branch for? ###
 
-* Show the refactored application where the Dependency Injection principle has been applied, so that basic characterization tests could be implemented. 
+* Show the result of the refactoring towards the Single Responsibility Principle (see previous branch).
 
 ### What should you do here?
 
-* Execute the characterization tests.
-* Refactor applying the Single Responsibility Principle (SPR) to separate the business logic from infrastructure code.
+* Continue refactoring the code, applying clean coding principles.
 
 ### Branches
 
