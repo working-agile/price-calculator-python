@@ -1,27 +1,28 @@
+
 Simplified version of the Refactoring exercise from Axel W. Berle's Scrum Alliance CSD training course.
 
 ### What is this repository for? ###
 
-* Refactoring for basic Clean Coding and SOLID principles
+* Refactoring for basic clean coding and SOLID principles
+
+### What is this branch for? ###
+
+* Demonstrate how to make the `Singleton pattern` testable.
 
 ### What should you do here?
 
-* Check out how the following techniques have been applied:
-
-> `Scenario Template`
+* Try to figure out strategies to make this code testable.
 
 ### Branches
 
 * 1-price-calculator-manual-test: no documentation is found, only a "manual" automated test.
+* 1b-price-calculator-singleton-example: make singleton testable, remove dependencies
 * 2-price-calculator-with-unit-test: code is covered by unit tests.
 * 3-price-calculator-renamed: methods and variables renamed
 * 3b-price-calculator-SRP: main class broken down into smaller more cohesive classes
 * 4-price-calculator-OCP: extension by inheritance
 * 5a-price-calculator-LSP: introduction of a new training course type: OD-SF
 * 5b-price-calculator-LSP: a solution, breaking the Liskov Substitution Principle
-
-* 10a-price-calculator-BDD: setup for first scenario
-* 10b-price-calculator-BDD-implementation: implementation
 
 ### Business Rules
 
@@ -42,8 +43,12 @@ Simplified version of the Refactoring exercise from Axel W. Berle's Scrum Allian
   and R$ 400,00 for the other training courses
 * No discount applicable the day before the training course
 * No discount applicable 5 days prior to the training course whenever there are less than 3 seats left
- 
+
+
+
 ### Who do I talk to? ###
 
 * Axel Wilhelm Berle
 * axelberle@gmail.com
+
+
