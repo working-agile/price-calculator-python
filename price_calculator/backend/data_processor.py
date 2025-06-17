@@ -1,80 +1,64 @@
 import psycopg2
 from .item import Item
+from .item_processor import ItemProcessor
 
 class DataProcessor:
+    _database = None
     
-    def __init__(self, databaseConnection):
-        self.sales_value = 0
-        self.list = []
-        self.database = databaseConnection
-
+    def __init__(self, database_connection=None):
+        self.item_processor = ItemProcessor()
+        if database_connection:
+            DataProcessor._database = database_connection
+    
+    def get_sales_value(self):
+        return self.item_processor.get_sales_value()
+    
+    def get_list(self):
+        return self.item_processor.get_list()
+    
     def calculate_data(self, advance_day):
-        if self.database is None:
+        self.init_database_connection()
+        
+        items = self.read_items_from_database()
+        
+        processed_items = self.item_processor.process_items(items, advance_day)
+        
+        self.update_prices_in_database(processed_items)
+    
+    def init_database_connection(self):
+        if DataProcessor._database is None:
             try:
-                url = "dbname='production_database' user='postgres' host='172.17.0.1' password='postgres'"
-                self.database = psycopg2.connect(url)
+                url = "dbname='production_database' user='postgres' host='127.0.0.1' password='postgres'"
+                DataProcessor._database = psycopg2.connect(url)
             except Exception as e:
                 raise RuntimeError(e)
-
-        # Read the prices from database
+    
+    def read_items_from_database(self):
+        items = []
+        
         try:
             query = "select * from tr_crs"
-            cursor = self.database.cursor()
+            cursor = DataProcessor._database.cursor()
             cursor.execute(query)
             rows = cursor.fetchall()
-            
-            self.sales_value = 0
-            new_list = []
             
             for row in rows:
                 id, tr_date, days, ttl_seats, avail, type, curr, full = row
                 item = Item(id, tr_date, days, ttl_seats, avail, type, curr, full)
-                
-                if not (item.days < 0 or (advance_day and item.days == 0)):
-                    new_list.append(item)
-                    
-                    if advance_day:
-                        item.days -= 1
-                        
-                    if item.days <= 10:
-                        if item.days <= 1 or (item.avail < 3 and item.days <= 5):
-                            item.curr = item.full
-                        else:
-                            if item.type == "CSD":
-                                item.curr = item.full - (item.days * 30)
-                            else:
-                                item.curr = item.full - (item.days * 20)
-                                
-                    elif item.days > 10:
-                        if item.days <= 1 or (item.avail < 3 and item.days <= 5):
-                            item.curr = item.full
-                        else:
-                            if item.type == "CSM":
-                                item.curr = item.full - 500
-                            else:
-                                item.curr = item.full - 400
-                    
-                    if item.type == "CSD" and item.curr < 900:
-                        item.curr = 900
-                    elif item.type == "CSM" and item.curr < 1000:
-                        item.curr = 1000
-                    elif item.type == "CSPO" and item.curr < 1200:
-                        item.curr = 1200
-                    
-                    self.sales_value += (item.avail * item.curr)
-            
+                items.append(item)
             cursor.close()
             
-            # Update prices in database
+            return items
+        except Exception as e:
+            raise RuntimeError(e)
+    
+    def update_prices_in_database(self, new_list):
+        try:
             for item in new_list:
                 update = "update tr_crs set days=%s, curr_price=%s where id=%s"
-                cursor = self.database.cursor()
+                cursor = DataProcessor._database.cursor()
                 cursor.execute(update, (item.days, item.curr, item.id))
-                self.database.commit()
+                DataProcessor._database.commit()
                 cursor.close()
-                
-            self.list = new_list
-            
         except Exception as e:
-            print(e)
-            pass
+            raise RuntimeError(e)

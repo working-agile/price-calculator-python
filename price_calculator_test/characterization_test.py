@@ -35,8 +35,8 @@ def test_prices_january_1_2025():
     processor.calculate_data(False)
     
     # Assert
-    actual_result_course = processor.list
-    actual_sales_value = processor.sales_value
+    actual_result_course = processor.get_list()
+    actual_sales_value = processor.get_sales_value()
     
     # Compare with the expected result
     assert actual_result_course[0].curr == 3820, "current price of course 1 is wrong"
@@ -93,8 +93,8 @@ def test_prices_january_2_2025():
     processor.calculate_data(True)
     
     # Assert
-    actual_result_course = processor.list
-    actual_sales_value = processor.sales_value
+    actual_result_course = processor.get_list()
+    actual_sales_value = processor.get_sales_value()
     
     # Compare with the expected result
     assert actual_result_course[0].curr == 3840, "current price of course 1 is wrong"
