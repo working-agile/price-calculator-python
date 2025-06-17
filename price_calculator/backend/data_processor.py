@@ -3,10 +3,10 @@ from .item import Item
 
 class DataProcessor:
     
-    def __init__(self):
+    def __init__(self, databaseConnection=None):
         self.sales_value = 0
         self.list = []
-        self.database = None
+        self.database = databaseConnection
 
     def calculate_data(self, advance_day):
         if self.database is None:

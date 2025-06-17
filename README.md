@@ -1,27 +1,26 @@
-Simplified version of the Refactoring exercise from Axel W. Berle's Scrum Alliance CSD training course.
+
+Refactoring exercises of Scrum Alliance A-CSD training course.
 
 ### What is this repository for? ###
 
-* Refactoring for basic Clean Coding and SOLID principles
+* Refactoring exercises illustrating Refactoring, Unit testing, Characterization tests, clean coding, dependency injection, single responsibility principle  
+
+### What is this branch for? ###
+
+* Show the refactored application where the Dependency Injection principle has been applied, so that basic characterization tests could be implemented. 
 
 ### What should you do here?
 
-* Check out how the following techniques have been applied:
-
-> `Scenario Template`
+* Execute the characterization tests.
+* Refactor applying the Single Responsibility Principle (SPR) to separate the business logic from infrastructure code.
 
 ### Branches
 
-* 1-price-calculator-manual-test: no documentation is found, only a "manual" automated test.
-* 2-price-calculator-with-unit-test: code is covered by unit tests.
-* 3-price-calculator-renamed: methods and variables renamed
-* 3b-price-calculator-SRP: main class broken down into smaller more cohesive classes
-* 4-price-calculator-OCP: extension by inheritance
-* 5a-price-calculator-LSP: introduction of a new training course type: OD-SF
-* 5b-price-calculator-LSP: a solution, breaking the Liskov Substitution Principle
+* 30-price-calculator-database: the initial state of the backend of the application. Integrated with a postgres database.
+* 31-price-calculator-database-characterization-test: implemented basic characterization tests.
+* 32-price-calculator-refactored: refactored version, separated business logic from infrastructure code.
+* 33-price-calculator-with-unit-tests: business rules illustrated by unit tests.
 
-* 10a-price-calculator-BDD: setup for first scenario
-* 10b-price-calculator-BDD-implementation: implementation
 
 ### Business Rules
 
@@ -38,12 +37,17 @@ Simplified version of the Refactoring exercise from Axel W. Berle's Scrum Allian
 
 * **Early Bird**: when buying a seat within 10 days prior the training course, there is a daily discount of R$ 30,00 for a
   CSD training, and R$ 20,00 for the other training courses.
+  
 * **Super Early Bird**: when buying a seat earlier than 10 days, then there is a fixed discount of R$ 500,00 for a CSM,
   and R$ 400,00 for the other training courses
 * No discount applicable the day before the training course
 * No discount applicable 5 days prior to the training course whenever there are less than 3 seats left
- 
+
+
+
 ### Who do I talk to? ###
 
 * Axel Wilhelm Berle
 * axelberle@gmail.com
+
+
