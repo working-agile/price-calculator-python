@@ -16,11 +16,11 @@ def before_and_after_each():
 
 def test_prices_january_1_2025():
     # Arrange
-    conn = get_database_connection()
-    processor = DataProcessor(conn)
+    test_database_connection = get_database_connection()
+    processor = DataProcessor(test_database_connection)
     
     # Insert test data
-    cursor = conn.cursor()
+    cursor = test_database_connection.cursor()
     insert_queries = [
         "INSERT INTO tr_crs(id,tr_date,days,ttl_seats,avail,type,full_price) VALUES(1,'9 January 2025',9,30,7,'CSPO',4000)",
         "INSERT INTO tr_crs(id,tr_date,days,ttl_seats,avail,type,full_price) VALUES(2,'10 January 2025',10,30,8,'CSO',3000)",
@@ -28,7 +28,7 @@ def test_prices_january_1_2025():
     ]
     for query in insert_queries:
         cursor.execute(query)
-    conn.commit()
+    test_database_connection.commit()
     cursor.close()
     
     # Act - call the function
@@ -74,11 +74,11 @@ def test_prices_january_1_2025():
 
 def test_prices_january_2_2025():
     # Arrange
-    conn = get_database_connection()
-    processor = DataProcessor(conn)
+    test_database_connection = get_database_connection()
+    processor = DataProcessor(test_database_connection)
     
     # Insert test data
-    cursor = conn.cursor()
+    cursor = test_database_connection.cursor()
     insert_queries = [
         "INSERT INTO tr_crs(id,tr_date,days,ttl_seats,avail,type,full_price) VALUES(1,'9 January 2025',9,30,7,'CSPO',4000)",
         "INSERT INTO tr_crs(id,tr_date,days,ttl_seats,avail,type,full_price) VALUES(2,'10 January 2025',10,30,8,'CSO',3000)",
@@ -86,7 +86,7 @@ def test_prices_january_2_2025():
     ]
     for query in insert_queries:
         cursor.execute(query)
-    conn.commit()
+    test_database_connection.commit()
     cursor.close()
     
     # Act - call the function

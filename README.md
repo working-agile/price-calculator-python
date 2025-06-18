@@ -7,12 +7,16 @@ Refactoring exercises of Scrum Alliance A-CSD training course.
 
 ### What is this branch for? ###
 
-* Show the refactored application where the Dependency Injection principle has been applied, so that basic characterization tests could be implemented. 
+* This is the result of the refactoring according to the SRP.
+* Unit tests have been added to show how unit tests document the business rules.
+* They provide a safety net for implementing changes to the business rules.
 
 ### What should you do here?
 
-* Execute the characterization tests.
-* Refactor applying the Single Responsibility Principle (SPR) to separate the business logic from infrastructure code.
+* Execute the unit tests
+* Implement the new business rule: a new training course **BDD for Agile Teams** needs to be implemented. Miniumum price of 700 R$
+SuperEarly bird price of 399 R$ and EarlyBird discount of 30 R$ per day.
+* Create unit tests for the new functionality and make sure at each step that all the unit tests continue passing.
 
 ### Branches
 

@@ -25,7 +25,7 @@ def main():
 def print_report(processor):
     print("Current prices of scheduled training courses:")
     print("---------------------------------------------")
-    for item in processor.list:
+    for item in processor.get_list():
         print(f"Type: {item.type}")
         print(f"When: {item.tr_date}")
         print(f"Remaining days before training course: {item.days}")
@@ -34,6 +34,6 @@ def print_report(processor):
         print(f"Number of seats: {item.seats}")
         print(f"Remaining available seats: {item.avail}")
         print()
-    print(f"Remaining total sales target: {processor.sales_value}")
+    print(f"Remaining total sales target: {processor.get_sales_value()}")
 
 main()
